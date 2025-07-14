@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ivan Christopher | Web Developer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Ivan Christopher</h1>
+    <h3>Aspiring Web Developer</h3>
+  </header>
+
+  <section class="about">
+    <img src="images/profile.jpg.png" alt="Profile Photo">
+    <h2>About Me</h2>
+    <p>Hello, I’m Ivan. I’m learning web development and building my portfolio from scratch. This is my first website project using HTML and CSS.</p>
+  </section>
+
+  <section class="skills" id="skills-box">
+    <div class="skill-card" id="skill-card">
+        <h2 id="skill-title">Skills</h2>
+        <p id="skill-content">What I can do</p>
+    </div>
+  </section>
+
+  <section class="projects">
+    <h2>Projects</h2>
+    <p>Coming soon...</p>
+  </section>
+
+  <section class="contact">
+    <h2>Contact Me</h2>
+    <p>Email: <a href="mailto:yourname@example.com">ivanchristopher2003@gmail.com</a></p>
+    <p>GitHub: <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Ivan Christopher</p>
+  </footer>
+
+<script>
+  const skills = [
+    { title: 'HTML5', content: 'Markup and semantic structure for web pages.' },
+    { title: 'CSS3', content: 'Styling, layouts, and responsive design.' },
+    { title: 'JavaScript', content: 'Interactivity and dynamic web behavior.' },
+    { title: 'Git & GitHub', content: 'Version control and online repositories.' },
+    { title: 'Responsive Design', content: 'Mobile-friendly, flexible layouts.' }
+  ];
+
+  let skillIndex = 0;
+  let skillInterval;
+
+  const skillBox = document.getElementById('skills-box');
+  const skillCard = document.getElementById('skill-card');
+  const skillTitle = document.getElementById('skill-title');
+  const skillContent = document.getElementById('skill-content');
+
+  function slideToNextSkill() {
+    // Fade out and slide left
+    skillCard.style.transition = 'transform 0.6s ease-in-out, opacity 0.2s ease-in';
+    skillCard.style.transform = 'translateX(-100%)';
+    skillCard.style.opacity = '0';
+
+    setTimeout(() => {
+      // Reset to the right, hide instantly
+      skillCard.style.transition = 'none';
+      skillCard.style.transform = 'translateX(100%)';
+      skillCard.style.opacity = '0';
+
+      // Update content
+      skillIndex = (skillIndex + 1) % skills.length;
+      skillTitle.textContent = skills[skillIndex].title;
+      skillContent.textContent = skills[skillIndex].content;
+
+      // Reflow for animation to apply
+      void skillCard.offsetWidth;
+
+      // Slide in and fade in
+      skillCard.style.transition = 'transform 0.6s ease-in-out, opacity 0.4s ease-out';
+      skillCard.style.transform = 'translateX(0)';
+      skillCard.style.opacity = '1';
+    }, 200); // wait for fade-out before reset
+  }
+
+  skillBox.addEventListener('mouseenter', () => {
+    slideToNextSkill();
+    skillInterval = setInterval(slideToNextSkill, 3000);
+  });
+
+  skillBox.addEventListener('mouseleave', () => {
+    clearInterval(skillInterval);
+    skillIndex = 0;
+    skillTitle.textContent = 'Skills';
+    skillContent.textContent = 'What I can do';
+    skillCard.style.transition = 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out';
+    skillCard.style.transform = 'translateX(0)';
+    skillCard.style.opacity = '1';
+  });
+</script>
+
+</html>
